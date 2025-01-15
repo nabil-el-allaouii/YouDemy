@@ -146,7 +146,8 @@ footer {
     color: #f4d03f;
 }
 
-.footer-section p, .footer-section a {
+.footer-section p,
+.footer-section a {
     color: #ccc;
     font-size: 0.9rem;
     margin: 5px 0;
@@ -344,4 +345,12 @@ body {
 
 .signup-box a:hover {
     text-decoration: underline;
+}
+
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
 }
