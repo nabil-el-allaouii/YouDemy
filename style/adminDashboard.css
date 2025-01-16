@@ -332,3 +332,58 @@ footer {
     background-color: #dc3545;
     color: white;
 }
+
+/* Teachers Table - inherits most styles from students-table */
+.teachers-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.teachers-table th,
+.teachers-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Additional Status Badges for Teachers */
+.status-badge.pending {
+    background-color: #e8eaed;
+    color: #5f6368;
+}
+
+.status-badge.accepted {
+    background-color: #e3fcef;
+    color: #00a650;
+}
+
+/* Teacher Action Buttons */
+.btn-accept {
+    background-color: #e3fcef;
+    color: #00a650;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-deny {
+    background-color: #ffebee;
+    color: #dc3545;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-accept:hover {
+    background-color: #00a650;
+    color: white;
+}
+
+.btn-deny:hover {
+    background-color: #dc3545;
+    color: white;
+}

@@ -80,17 +80,33 @@
                         </thead>
                         <tbody>
                             <?php require "classes/admin.php";
-                            $newUsers = new Admin("","","");
+                            $newUsers = new Admin("", "", "");
                             $newUsers->ShowStudents();
-                                   ?>
+                            ?>
                         </tbody>
                     </table>
                 </div>
             </section>
 
             <section id="teachers" class="content-section">
-                <h2>Teachers</h2>
-                Here Teachers
+                <h2>Teachers Management</h2>
+
+                <div class="table-container">
+                    <table class="teachers-table">
+                        <thead>
+                            <tr>
+                                <th>Teacher Name</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $newTeachers = new Admin("","","");
+                                $newTeachers->showTeachers();
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </section>
 
             <section id="courses" class="content-section">
