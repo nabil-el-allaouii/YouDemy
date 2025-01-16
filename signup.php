@@ -8,11 +8,17 @@ if (isset($_POST["Signup"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
     $user_role = $_POST["role"];
+    if(!empty($username) && !empty($email) && !empty($password) && !empty($user_role)){
+        if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+            $enc_password = password_hash($password , PASSWORD_DEFAULT);
 
-    $enc_password = password_hash($password , PASSWORD_DEFAULT);
+            $newUser = new users($username,$email,$enc_password,$user_role);
+            $newUser->Signup();
+            header("location: login.php");
+            exit();
+        }
+    }
 
-    $newUser = new users($username,$email,$enc_password,$user_role);
-    $newUser->Signup();
 }
 
 ?>
@@ -24,7 +30,7 @@ if (isset($_POST["Signup"])) {
     <title>sign-up</title>
 </head>
 
-<body>
+<body class="signUp_body">
     <main>
         <div class="signup-container">
             <div class="signup-box">

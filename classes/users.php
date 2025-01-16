@@ -2,14 +2,16 @@
 
 
 require "db.php";
+session_start();
 
 class users {
-    private $user_name;
-    private $email;
-    private $password;
-    private $user_role;
-    private $data;
-    private $status = "activated";
+    protected $user_name;
+    protected $email;
+    protected $password;
+    protected $user_role;
+    protected $data;
+    protected $status = "activated";
+    private $error = "";
 
     public function __construct($Username, $email,$password,$UserRole)
     {
@@ -41,5 +43,32 @@ class users {
             $stmtsend->bindParam(":Account_status" , $this->status);
             $stmtsend->execute();
         }
+    }
+
+    public function signin(){
+        $stmt = "SELECT * from users where user_email = :email";
+        $checkstmt = $this->data->prepare($stmt);
+        $checkstmt->bindParam(":email" , $this->email);
+        $checkstmt->execute();
+        $hashed_pass = $checkstmt->fetch();
+
+        if($hashed_pass && password_verify($this->password ,$hashed_pass["user_password"])){
+            if($hashed_pass["user_role"] === "admin"){
+                $_SESSION["Admin_user"] = $hashed_pass["user_name"];
+                $_SESSION["AdminId"] = $hashed_pass["user_id"];
+                header("location: DashboardAdmin.php");
+                exit();
+            }
+            else{
+                $_SESSION["username"] = $hashed_pass["user_name"];
+                $_SESSION["userId"] = $hashed_pass["user_id"];
+                header("location:dashboard.php");
+                exit();
+            }
+        }
+        else{
+            return $this->error = "wrong username or password";
+        }
+
     }
 }
