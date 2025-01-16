@@ -333,7 +333,6 @@ footer {
     color: white;
 }
 
-/* Teachers Table - inherits most styles from students-table */
 .teachers-table {
     width: 100%;
     border-collapse: collapse;
@@ -346,7 +345,6 @@ footer {
     border-bottom: 1px solid #ddd;
 }
 
-/* Additional Status Badges for Teachers */
 .status-badge.pending {
     background-color: #e8eaed;
     color: #5f6368;
@@ -357,7 +355,6 @@ footer {
     color: #00a650;
 }
 
-/* Teacher Action Buttons */
 .btn-accept {
     background-color: #e3fcef;
     color: #00a650;
@@ -386,4 +383,137 @@ footer {
 .btn-deny:hover {
     background-color: #dc3545;
     color: white;
+}
+
+.categories-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.category-form {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.category-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    flex: 1;
+    font-size: 14px;
+}
+
+.btn-add-category {
+    padding: 10px 20px;
+    background-color: #2a2a2a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-add-category:hover {
+    background-color: #444;
+    transform: translateY(-1px);
+}
+
+.categories-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.categories-table th,
+.categories-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.categories-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.btn-delete {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #ffebee;
+    color: #dc3545;
+}
+
+.btn-delete:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Tags Section */
+.tags-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Add Tags Form */
+.tags-form {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tags-input {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+}
+
+.tags-input:focus {
+    outline: none;
+    border-color: #2a2a2a;
+}
+
+.btn-add-tags {
+    padding: 10px 20px;
+    background-color: #2a2a2a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+.btn-add-tags:hover {
+    background-color: #444;
+    transform: translateY(-1px);
+}
+
+/* Tags Table */
+.tags-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tags-table th,
+.tags-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.tags-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
 }

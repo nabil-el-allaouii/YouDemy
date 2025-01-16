@@ -75,14 +75,13 @@ class Admin extends users
                 $DenyAndAccept = "<a href='actions/activate.php?UserID={$teacher['user_id']}'><button class='btn-accept'>Accept</button></a>
                             <a href='actions/delete.php?UserID={$teacher['user_id']}'><button class='btn-deny'>remove</button></a>";
             } else {
-                if($teacher['Account_status'] === "suspended"){
+                if ($teacher['Account_status'] === "suspended") {
                     $DenyAndAccept = "<a href='actions/activate.php?UserID={$teacher['user_id']}'><button class='btn-accept'>Activate</button></a>
                     <a href='actions/delete.php?UserID={$teacher['user_id']}'><button class='btn-deny'>remove</button></a>";
-                }else{
+                } else {
                     $DenyAndAccept = "<a href='actions/suspend.php?UserID={$teacher['user_id']}'><button class='btn-deny'>Suspend</button></a>
                     <a href='actions/suspend.php?UserID={$teacher['user_id']}'><button class='btn-deny'>remove</button></a>";
                 }
-                
             }
             echo "
                     <tr>
@@ -94,4 +93,53 @@ class Admin extends users
                     </tr>";
         }
     }
+
+
+    public function AddCategory($Content)
+    {
+        $checkstmt = "SELECT category_content from categories where category_content = :category_content";
+        $checkstmt = $this->data->prepare($checkstmt);
+        $checkstmt->bindParam(":category_content", $Content);
+        $checkstmt->execute();
+        $checks = $checkstmt->fetch();
+
+        if (empty($checks)) {
+            $stmt = "INSERT into categories(category_content) values(:content)";
+            $stmt = $this->data->prepare($stmt);
+            $stmt->bindParam(":content", $Content);
+            $stmt->execute();
+            return true;
+        }
+        else{
+            return "This category already exists";
+        }
+    }
+
+    public function ShowCategories()
+    {
+        $stmt = "SELECT category_content,category_id from categories";
+        $stmt = $this->data->prepare($stmt);
+        $stmt->execute();
+
+        $categories = $stmt->fetchAll();
+
+        foreach ($categories as $category) {
+            echo "<tr>
+                        <td>{$category['category_content']}</td>
+                        <td>
+                            <a href='actions/deleteCategory.php?categoryID={$category['category_id']}'><button class='btn-delete'>Delete</button></a>
+                        </td>
+                  </tr>";
+        }
+    }
+
+    public function DeleteCategory($CategoryID)
+    {
+        $stmt = "DELETE from categories where category_id = :category_id";
+        $stmt = $this->data->prepare($stmt);
+        $stmt->bindParam(":category_id", $CategoryID);
+        $stmt->execute();
+        return true;
+    }
+
 }

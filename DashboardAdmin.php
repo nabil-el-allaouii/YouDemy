@@ -101,8 +101,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $newTeachers = new Admin("","","");
-                                $newTeachers->showTeachers();
+                            <?php $newTeachers = new Admin("", "", "");
+                            $newTeachers->showTeachers();
                             ?>
                         </tbody>
                     </table>
@@ -115,13 +115,64 @@
             </section>
 
             <section id="categories" class="content-section">
-                <h2>Categories</h2>
-                Here categories
+                <h2>Categories Management</h2>
+
+                <div class="categories-container">
+                    <div class="category-form">
+                        <form action="actions/AddCategory.php" method="post">
+                            <input type="text" placeholder="Enter new category name" class="category-input" name="category" required>
+                            <button class="btn-add-category" type="submit" name="Add-category">Add Category</button>
+                        </form>
+                    </div>
+
+                    <div class="categories-list">
+                        <table class="categories-table">
+                            <thead>
+                                <tr>
+                                    <th>Category Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $newTeachers->ShowCategories() ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </section>
 
             <section id="tags" class="content-section">
-                <h2>Tags</h2>
-                Here tags
+                <h2>Tags Management</h2>
+
+                <div class="tags-container">
+                    <form action="actions/addTag.php" method="post">
+                        <div class="tags-form">
+                            <textarea
+                                class="tags-input"
+                                placeholder="Enter tags (separate with commas)&#10;Example: JavaScript, PHP, HTML, CSS"
+                                rows="4" name="tags"></textarea>
+                            <button type="submit" class="btn-add-tags" name="Add-tag">Add Tags</button>
+                        </div>
+                    </form>
+
+
+                    <div class="tags-list">
+                        <table class="tags-table">
+                            <thead>
+                                <tr>
+                                    <th>Tag Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>JavaScript</td>
+                                    <td><button class="btn-delete">Delete</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </section>
 
             <section id="statistics" class="content-section">
