@@ -1,4 +1,3 @@
-
 <?php
 require "classes/teacher.php";
 ?>
@@ -70,31 +69,31 @@ require "classes/teacher.php";
             <section id="add-course" class="content-section">
                 <h2>Add New Course</h2>
                 <div class="course-form-container">
-                    <form class="course-form" action="CourseAdd.php">
+                    <form class="course-form" action="actions/AddCourse.php" method="post">
                         <div class="form-group">
                             <label>Course Title</label>
-                            <input type="text" placeholder="Enter course title" required>
+                            <input name="title" type="text" placeholder="Enter course title" required>
                         </div>
 
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea placeholder="Enter course description" rows="4" required></textarea>
+                            <textarea name="description" placeholder="Enter course description" rows="4" required></textarea>
                         </div>
 
                         <div class="form-group">
                             <label>Category</label>
-                            <select required>
+                            <select name="category" required>
                                 <option value="">Select Category</option>
                                 <?php
-                                    $newCategories = new teacher("","","");
-                                    $newCategories->showCategories();
+                                $newCategories = new teacher("", "", "");
+                                $newCategories->showCategories();
                                 ?>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label>Course Type</label>
-                            <select id="courseType" required>
+                            <select name="type" id="courseType" required>
                                 <option value="">Select Type</option>
                                 <option value="video">Video Course</option>
                                 <option value="document">Document Course</option>
@@ -107,20 +106,20 @@ require "classes/teacher.php";
 
                         <div class="form-group">
                             <label>Tags</label>
-                            <div class="tags-checkbox-group">=
-                                <?php 
-                                $newTags = new teacher("","","");
+                            <div class="tags-checkbox-group">
+                                <?php
+                                $newTags = new teacher("", "", "");
                                 $newTags->showTags();
                                 ?>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn-submit">Create Course</button>
+                        <button type="submit" class="btn-submit" name="Add-course">Create Course</button>
                     </form>
                 </div>
             </section>
 
-            <!-- My Courses Section -->
+
             <section id="my-courses" class="content-section">
                 <h2>My Courses</h2>
                 <div class="courses-container">
@@ -134,7 +133,17 @@ require "classes/teacher.php";
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Add PHP to populate courses -->
+                            
+                            <tr>
+                                <td>Introduction to Python</td>
+                                <td>Programming</td>
+                                <td>45</td>
+                                <td class="course-actions">
+                                    <button class="btn-view">View</button>
+                                    <button class="btn-edit">Edit</button>
+                                    <button class="btn-delete">Delete</button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -189,7 +198,7 @@ require "classes/teacher.php";
                         contentContainer.innerHTML = `
                     <label>Video Url</label>
                     <div class="video-input">
-                        <input type="url" required>
+                        <input name='video' type="url" required>
                     </div>
                 `;
                         break;
@@ -197,7 +206,7 @@ require "classes/teacher.php";
                         contentContainer.innerHTML = `
                     <label>Course Content</label>
                     <div class="document-input">
-                        <textarea placeholder="Enter your course content here..." required></textarea>
+                        <textarea name='document' placeholder="Enter your course content here..." required></textarea>
                     </div>
                 `;
                         break;

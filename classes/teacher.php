@@ -16,7 +16,7 @@ class teacher extends users{
         foreach($tags as $tag){
             echo "
             <label class='tag-checkbox'>
-                <input type='checkbox' name='tags[]' value='{$tag['tag_content']}'>
+                <input type='checkbox' name='tags[]' value='{$tag['tag_id']}'>
                 <span>{$tag['tag_content']}</span>
             </label>";
         }
@@ -32,4 +32,17 @@ class teacher extends users{
             echo "<option value='{$category['category_content']}'>{$category['category_content']}</option>";
         }
     }
+
+    public function TeacherCourses($userID){
+        $stmt = "SELECT * from courses where user_id = :user_id";
+        $stmt = $this->data->prepare($stmt);
+        $stmt->bindParam(":user_id" ,$userID);
+        $stmt->execute();
+
+        $Courses = $stmt->fetchAll();
+        foreach($Courses as $course){
+            
+        }
+    }
+
 }

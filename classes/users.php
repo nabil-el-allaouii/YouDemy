@@ -59,11 +59,15 @@ class users {
                 header("location: DashboardAdmin.php");
                 exit();
             }
-            else{
+            else if($hashed_pass["user_role"] === "teacher"){
                 $_SESSION["username"] = $hashed_pass["user_name"];
                 $_SESSION["userId"] = $hashed_pass["user_id"];
-                header("location:dashboard.php");
+                header("location: TeacherDashboard.php");
                 exit();
+            }
+            else{
+                $_SESSION["user_student"] = $hashed_pass["user_name"];
+                $_SESSION["id_student"] = $hashed_pass["user_id"];
             }
         }
         else{
