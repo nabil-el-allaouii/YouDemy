@@ -453,7 +453,7 @@ footer {
     color: white;
 }
 
-/* Tags Section */
+
 .tags-container {
     background: white;
     padding: 20px;
@@ -461,7 +461,7 @@ footer {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Add Tags Form */
+
 .tags-form {
     margin-bottom: 20px;
     display: flex;
@@ -500,7 +500,7 @@ footer {
     transform: translateY(-1px);
 }
 
-/* Tags Table */
+
 .tags-table {
     width: 100%;
     border-collapse: collapse;
@@ -516,4 +516,33 @@ footer {
 .tags-table th {
     background-color: #f8f9fa;
     font-weight: 600;
+}
+
+.Admin_home {
+    display: flex;
+    align-items: center;
+}
+
+.Admin_home ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.Admin_home ul li {
+    display: inline-block;
+}
+
+.Admin_home ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.Admin_home ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
 }

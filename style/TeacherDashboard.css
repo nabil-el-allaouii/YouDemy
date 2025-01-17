@@ -1,0 +1,233 @@
+/* Import admin dashboard base styles */
+@import 'adminDashboard.css';
+
+/* Course Form Styles */
+.course-form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.course-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #2a2a2a;
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.btn-submit {
+    padding: 12px 24px;
+    background-color: #2a2a2a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+.btn-submit:hover {
+    background-color: #444;
+    transform: translateY(-2px);
+}
+
+/* Courses Table */
+.courses-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.courses-table th,
+.courses-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.courses-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+/* Action Buttons for Courses */
+.course-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-edit,
+.btn-delete,
+.btn-view {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-edit {
+    background-color: #e3fcef;
+    color: #00a650;
+}
+
+.btn-view {
+    background-color: #e8eaed;
+    color: #5f6368;
+}
+
+.btn-edit:hover {
+    background-color: #00a650;
+    color: white;
+}
+
+.btn-view:hover {
+    background-color: #5f6368;
+    color: white;
+}
+
+.Teacher_home {
+    display: flex;
+    align-items: center;
+}
+
+.Teacher_home ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.Teacher_home ul li {
+    display: inline-block;
+}
+
+.Teacher_home ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.Teacher_home ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.tags-checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.tag-checkbox {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.tag-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.tag-checkbox span {
+    font-size: 14px;
+    color: #666;
+}
+
+.tag-checkbox input[type="checkbox"]:checked+span {
+    color: #fff;
+    font-weight: 500;
+}
+
+.tag-checkbox input[type="checkbox"]:checked+span {
+    background-color: #007bff;
+    border-color: #0056b3;
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+/* Hover effect */
+.tag-checkbox:hover {
+    background-color: #e9ecef;
+    transform: translateY(-1px);
+}
+
+#contentContainer {
+    transition: all 0.3s ease;
+}
+
+.video-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.document-input textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.video-input input[type="url"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.video-input input[type="url"]:focus {
+    outline: none;
+    border-color: #2a2a2a;
+    box-shadow: 0 0 0 2px rgba(42, 42, 42, 0.1);
+}
+
+.video-input input[type="url"]::placeholder {
+    color: #999;
+}

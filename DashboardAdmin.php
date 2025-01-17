@@ -1,5 +1,8 @@
 <?php
-
+require "classes/admin.php";
+if (!isset($_SESSION["Admin_user"])) {
+    header("location: login.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +20,13 @@
         <div class="logo">
             <h1>Youdemy Admin Dashboard</h1>
         </div>
-
+        <nav class="Admin_home">
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
         <div class="profile-section">
             <div class="profile-info">
                 <span class="user-name">John Doe</span>
@@ -39,7 +48,7 @@
                     <li><a href="#categories">Categories</a></li>
                     <li><a href="#tags">Tags</a></li>
                     <li><a href="#statistics">Statistics</a></li>
-                    <li><a href="#logout" class="btn-logout">Logout</a></li>
+                    <li><a href="actions/logout.php" class="btn-logout">Logout</a></li>
                 </ul>
             </nav>
         </aside>
@@ -79,7 +88,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php require "classes/admin.php";
+                            <?php
                             $newUsers = new Admin("", "", "");
                             $newUsers->ShowStudents();
                             ?>
@@ -147,6 +156,7 @@
                 <div class="tags-container">
                     <form action="actions/addTag.php" method="post">
                         <div class="tags-form">
+                            <p class="Error_text" style="color: red;display:none">Invalid Type of characters Detected!</p>
                             <textarea
                                 class="tags-input"
                                 placeholder="Enter tags (separate with commas)&#10;Example: JavaScript, PHP, HTML, CSS"
@@ -206,6 +216,20 @@
                 });
             });
         });
+
+        let textArea = document.querySelector(".tags-input");
+        let error = document.querySelector(".Error_text");
+
+        textArea.addEventListener("input", e => {
+            let text = e.target.value;
+            const lastChar = text[text.length - 1]
+            if (!/[a-zA-Z,]/.test(lastChar)) {
+                e.target.value = text.slice(0, -1);
+                error.style.display = "block";
+            } else {
+                error.style.display = "none";
+            }
+        })
     </script>
 </body>
 
