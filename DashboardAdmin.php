@@ -165,10 +165,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>JavaScript</td>
-                                    <td><button class="btn-delete">Delete</button></td>
-                                </tr>
+                                <?php $newTeachers->Showtags() ?>
                             </tbody>
                         </table>
                     </div>

@@ -109,8 +109,7 @@ class Admin extends users
             $stmt->bindParam(":content", $Content);
             $stmt->execute();
             return true;
-        }
-        else{
+        } else {
             return "This category already exists";
         }
     }
@@ -142,4 +141,46 @@ class Admin extends users
         return true;
     }
 
+    public function AddTag($TagContent)
+    {
+        $checkstmt = "SELECT * from tags where tag_content = :content";
+        $checkstmt = $this->data->prepare($checkstmt);
+        foreach ($TagContent as $Tag) {
+            $checkstmt->bindParam(":content", $Tag);
+            $checkstmt->execute();
+            $TagThere = $checkstmt->fetch();
+
+            if (empty($TagThere)) {
+                $stmt = "INSERT into tags (tag_content) values(:tag_content)";
+                $stmt = $this->data->prepare($stmt);
+                $stmt->bindParam(":tag_content", $Tag);
+                $stmt->execute();
+            }
+        }
+    }
+
+    public function Showtags()
+    {
+        $stmt = "SELECT * from tags";
+        $stmt = $this->data->prepare($stmt);
+        $stmt->execute();
+        $Tags = $stmt->fetchAll();
+
+        foreach ($Tags as $tag) {
+            echo "<tr>
+                        <td>{$tag['tag_content']}</td>
+                        <td>
+                        <a href='actions/deleteTag.php?TagId={$tag['tag_id']}'><button class='btn-delete'>Delete</button></a>
+                        </td>
+                    </tr>";
+        }
+    }
+
+    public function deleteTags($tagID){
+        $stmt = "DELETE from tags where tag_id = :tag_id";
+        $stmt = $this->data->prepare($stmt);
+        $stmt->bindParam(":tag_id" , $tagID);
+        $stmt->execute();
+        return true;
+    }
 }
