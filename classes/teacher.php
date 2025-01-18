@@ -41,7 +41,16 @@ class teacher extends users{
 
         $Courses = $stmt->fetchAll();
         foreach($Courses as $course){
-            
+            echo "<tr>
+                    <td>{$course['course_title']}</td>
+                    <td>{$course['Category']}</td>
+                    <td>45</td>
+                    <td class='course-actions'>
+                        <button class='btn-view'>View</button>
+                        <a href='modifyCourse.php?courseID={$course['course_id']}'><button class='btn-edit'>Edit</button></a>
+                        <button class='btn-delete'>Delete</button>
+                    </td>
+                </tr>";
         }
     }
 

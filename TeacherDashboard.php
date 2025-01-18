@@ -1,5 +1,9 @@
 <?php
 require "classes/teacher.php";
+
+if(!isset($_SESSION["username"])){
+    header("location: login.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -134,16 +138,8 @@ require "classes/teacher.php";
                         </thead>
                         <tbody>
                             
-                            <tr>
-                                <td>Introduction to Python</td>
-                                <td>Programming</td>
-                                <td>45</td>
-                                <td class="course-actions">
-                                    <button class="btn-view">View</button>
-                                    <button class="btn-edit">Edit</button>
-                                    <button class="btn-delete">Delete</button>
-                                </td>
-                            </tr>
+                        <?php $Mycourse = new teacher("","","");
+                                $Mycourse->TeacherCourses($_SESSION["userId"])  ?>
                         </tbody>
                     </table>
                 </div>
