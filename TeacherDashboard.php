@@ -117,6 +117,7 @@ if(!isset($_SESSION["username"])){
                                 ?>
                             </div>
                         </div>
+                <p id="errorMsg" style="color: red; display: none;">Please select at least one tag.</p>
 
                         <button type="submit" class="btn-submit" name="Add-course">Create Course</button>
                     </form>
@@ -132,7 +133,7 @@ if(!isset($_SESSION["username"])){
                             <tr>
                                 <th>Title</th>
                                 <th>Category</th>
-                                <th>Students</th>
+                                <th>Course Type</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -145,7 +146,7 @@ if(!isset($_SESSION["username"])){
                 </div>
             </section>
 
-            <!-- Statistics Section -->
+           
             <section id="statistics" class="content-section">
                 <h2>Statistics</h2>
                 <div class="stats-container">
@@ -211,6 +212,21 @@ if(!isset($_SESSION["username"])){
                         contentContainer.innerHTML = '';
                 }
             });
+        });
+
+
+        const form = document.querySelector('.course-form');
+        const checkboxes = document.querySelectorAll('input[name="tags[]"]');
+        const errorMsg = document.getElementById('errorMsg');
+        form.addEventListener('submit', (e) => {
+            const isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+            if (!isChecked) {
+                e.preventDefault();
+                errorMsg.style.display = 'block';
+            } else {
+                errorMsg.style.display = 'none';
+            }
         });
     </script>
 </body>

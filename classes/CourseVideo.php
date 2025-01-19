@@ -30,40 +30,71 @@ class courseVideo extends course
             $tagstmt->execute();
         }
     }
-    public function ShowCourse() {}
-    public function modifyCourse($title,$description,$video,$category,$course_id,$tags,$type) {
-        if($type === "video"){
-            $changetype = "UPDATE courses set course_type = :course_type , course_document = null";
+    public function ShowCourse($course_id)
+    {
+        $stmt = "SELECT * from courses join users on users.user_id = courses.user_id where courses.course_id = :course_id;";
+        $stmt = $this->data->prepare($stmt);
+        $stmt->bindParam(":course_id", $course_id);
+        $stmt->execute();
+        $CourseVideo = $stmt->fetch();
+        echo "
+            <div class='course-container video-course'>
+                <div class='course-header'>
+                    <h1 class='course-title'>{$CourseVideo['course_title']}</h1>
+                    <div class='course-meta'>
+                        <span class='category'>{$CourseVideo['Category']}</span>
+                        <span class='instructor'>By {$CourseVideo['user_name']}</span>
+                    </div>
+                </div>
+                <div class='course-content'>
+                    <div class='video-container'>
+                        <iframe
+                            src='{$CourseVideo['course_video']}'
+                            frameborder='0'
+                            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>";
+    }
+    public function modifyCourse($title, $description, $video, $category, $course_id, $tags, $type)
+    {
+        if ($type === "video") {
+            $changetype = "UPDATE courses set course_type = :course_type , course_document = null where course_id = :course_id";
             $changetype = $this->data->prepare($changetype);
-            $changetype->bindParam(":course_type" , $type);
+            $changetype->bindParam(":course_type", $type);
+            $changetype->bindParam(":course_id", $course_id);
             $changetype->execute();
-        }else{
-            $change = "UPDATE courses set course_type = :course_type , course_video = null";
+        } else {
+            $change = "UPDATE courses set course_type = :course_type , course_video = null where course_id = :course_id";
             $change = $this->data->prepare($change);
-            $change->bindParam(":course_type" , $type);
+            $change->bindParam(":course_type", $type);
+            $change->bindParam(":course_id", $course_id);
             $change->execute();
         }
         $deleteCurrTags = "DELETE from coursetags where course_id = :course_id";
         $deleteCurrTags = $this->data->prepare($deleteCurrTags);
-        $deleteCurrTags->bindParam(":course_id" , $course_id);
+        $deleteCurrTags->bindParam(":course_id", $course_id);
         $deleteCurrTags->execute();
         $tagsINsert = "INSERT into coursetags(tag_id,course_id) values(:tag_id,:course_id)";
         $tagsINsert = $this->data->prepare($tagsINsert);
-        $tagsINsert->bindParam(":course_id" , $course_id);
-        foreach($tags as $tag){
-            $tagsINsert->bindParam(":tag_id" , $tag);
+        $tagsINsert->bindParam(":course_id", $course_id);
+        foreach ($tags as $tag) {
+            $tagsINsert->bindParam(":tag_id", $tag);
             $tagsINsert->execute();
         }
         $stmt = "UPDATE courses set course_title = :title , course_description = :description , course_video = :video , category = :category where course_id = :course_id";
         $stmt = $this->data->prepare($stmt);
-        $stmt->bindParam(":title" , $title);
-        $stmt->bindParam(":description" , $description);
-        $stmt->bindParam(":video" , $video);
+        $stmt->bindParam(":title", $title);
+        $stmt->bindParam(":description", $description);
+        $stmt->bindParam(":video", $video);
         $stmt->bindParam(":category", $category);
         $stmt->bindParam(":course_id", $course_id);
         $stmt->execute();
     }
-    public function RetrieveOldCourse($course_id){
+    public function RetrieveOldCourse($course_id)
+    {
         $array = [];
         $stmt = "SELECT * from courses where course_id = :course_id";
         $categoryStmt = "SELECT * from categories";
@@ -71,7 +102,7 @@ class courseVideo extends course
         $TagsInCourse = "select tags.tag_content from coursetags join tags on tags.tag_id = coursetags.tag_id where course_id = :course_id;";
 
         $TagsInCourse = $this->data->prepare($TagsInCourse);
-        $TagsInCourse->bindParam(":course_id" , $course_id);
+        $TagsInCourse->bindParam(":course_id", $course_id);
         $tags = $this->data->prepare($tags);
         $categoryStmt = $this->data->prepare($categoryStmt);
         $stmt = $this->data->prepare($stmt);

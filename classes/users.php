@@ -75,4 +75,27 @@ class users {
         }
 
     }
+
+    public function Pagination(){
+        $array = [];
+        $perPage = 3;
+        $stmt = "SELECT count(*) from courses";
+        $stmt = $this->data->prepare($stmt);
+        $stmt->execute();
+        $NumberOfCourses = $stmt->fetchColumn();
+
+        $totalPages = ceil($NumberOfCourses / $perPage);
+        $currentPage = isset($_GET["page"])? "{$_GET['page']}" : "1";
+
+        $x = ($currentPage - 1) * $perPage;
+        $y = $perPage;
+        $Courses = "SELECT * from courses Limit $x , $y";
+        $Courses = $this->data->prepare($Courses);
+        $Courses->execute();
+        $Content = $Courses->fetchAll();
+
+        $array["course_info"] = $Content;
+        $array["number_of_pages"] = $totalPages;
+        return $array;
+    }
 }

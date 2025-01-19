@@ -28,17 +28,40 @@ class coursedocument extends course {
             $tagstmt->execute();
         }
     }
-    public function ShowCourse() {}
+    public function ShowCourse($course_id) {
+        $stmt = "SELECT * from courses join users on users.user_id = courses.user_id where courses.course_id = :course_id";
+        $stmt = $this->data->prepare($stmt);
+        $stmt->bindParam(":course_id", $course_id);
+        $stmt->execute();
+        $CourseDocument = $stmt->fetch();
+        echo "
+        <div class='course-container text-course'>
+            <div class='course-header'>
+                <h1 class='course-title'>{$CourseDocument['course_title']}</h1>
+                <div class='course-meta'>
+                    <span class='category'>{$CourseDocument['Category']}</span>
+                    <span class='instructor'>By {$CourseDocument['user_name']}</span>
+                </div>
+            </div>
+            <div class='course-content'>
+                <div class='content-text'>
+                    {$CourseDocument['course_document']}
+                </div>
+            </div>
+        </div>";
+    }
     public function modifyCourse($title,$description,$document,$category,$course_id,$tags,$type) {
         if($type === "video"){
-            $changetype = "UPDATE courses set course_type = :course_type , course_document = null";
+            $changetype = "UPDATE courses set course_type = :course_type , course_document = null where course_id = :course_id";
             $changetype = $this->data->prepare($changetype);
             $changetype->bindParam(":course_type" , $type);
+            $changetype->bindParam(":course_id" , $course_id);
             $changetype->execute();
         }else{
-            $change = "UPDATE courses set course_type = :course_type , course_video = null";
+            $change = "UPDATE courses set course_type = :course_type , course_video = null where course_id = :course_id";
             $change = $this->data->prepare($change);
             $change->bindParam(":course_type" , $type);
+            $change->bindParam(":course_id" , $course_id);
             $change->execute();
         }
 

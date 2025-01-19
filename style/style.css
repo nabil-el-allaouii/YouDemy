@@ -354,14 +354,49 @@ body {
     border-radius: 5px;
     font-size: 1rem;
 }
-.signUp_body{
+
+.signUp_body {
     background: #2a2a2a;
 }
-.login_body{
+
+.login_body {
     background: #2a2a2a;
-    
+
 }
 
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 30px 0;
+}
 
+.page-btn {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    background-color: white;
+    color: #2a2a2a;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
 
+.page-btn:hover {
+    background-color: #f4d03f;
+    color: #2a2a2a;
+    border-color: #f4d03f;
+}
 
+.page-btn.active {
+    background-color: #2a2a2a;
+    color: white;
+    border-color: #2a2a2a;
+}
+
+/* Only style the last button (next arrow) */
+.page-btn:last-child {
+    font-weight: bold;
+}

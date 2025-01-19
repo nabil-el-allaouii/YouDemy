@@ -1,3 +1,12 @@
+<?php
+require "classes/users.php";
+
+$newPag = new users("", "", "", "");
+$courses = $newPag->Pagination();
+extract($courses);
+
+?>
+
 <html lang="en">
 
 <head>
@@ -28,7 +37,14 @@
                     <li><a href="#courses">Courses</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="login.php" class="btn-login">Login</a></li>
+                    <?php if(isset($_SESSION["username"])) {
+                        echo "<li><a href='TeacherDashboard.php' class='btn-login'>Dashboard</a></li>";
+                    }else if(isset($_SESSION["Admin_user"])){
+                        echo "<li><a href='DashboardAdmin.php' class='btn-login'>Dashboard</a></li>";
+                    } else{
+                        echo "<li><a href='login.php' class='btn-login'>Login</a></li>";
+                    }
+                    ?>
                 </ul>
             </nav>
         </header>
@@ -37,15 +53,27 @@
             <section class="courses">
                 <h2>Available Courses</h2>
                 <div class="course-grid">
-                    <div class="course-card"> <img src="course-image.jpg" alt="Course Image">
-                        <div class="course-info">
-                            <a href="#">
-                                <h3>Course Title</h3>
-                            </a>
-                            <p>Course Description</p>
-                            <button class="enroll-button">Enroll Now</button>
+                    <?php foreach ($course_info as $course) : ?>
+                        <div class="course-card"> <img src="course-image.jpg" alt="Course Image">
+                            <div class="course-info">
+                                <a href="#">
+                                    <h3><?php echo $course["course_title"] ?></h3>
+                                </a>
+                                <p><?php echo $course["course_description"] ?></p>
+                                <button class="enroll-button">Enroll Now</button>
+                            </div>
                         </div>
-                    </div>
+                    <?php endforeach ?>
+
+
+
+                </div>
+                <div class="pagination">
+                    <a href="index.php?page=<?php  print ( isset($_GET["page"]) && $_GET["page"] > 1)? $_GET["page"] - 1 : $_GET["page"] = 1 ?>"><button class="page-btn">&laquo;</button></a>
+                    <?php for($i = 1;$i<=$number_of_pages;$i++) :?>
+                        <a href="index.php?page=<?php echo $i ?>"><button class="page-btn"><?php echo $i ?></button></a>
+                    <?php endfor ?>
+                    <a href="index.php?page=<?php print (isset($_GET["page"]) && $_GET["page"] < $number_of_pages) ? $_GET["page"] + 1: $_GET["page"] = $number_of_pages ?>"><button class="page-btn">&raquo;</button></a>
                 </div>
             </section>
         </main>

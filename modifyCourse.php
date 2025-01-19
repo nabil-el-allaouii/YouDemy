@@ -58,8 +58,8 @@ $course_id = $_GET["courseID"];
                     <label>Course Type</label>
                     <select name="type" id="courseType" required>
                         <option value="">Select Type</option>
-                        <option value="video">Video Course</option>
-                        <option value="document">Document Course</option>
+                        <option <?php print($course_info["course_type"] === "video")? "selected": "" ?> value="video">Video Course</option>
+                        <option <?php print($course_info["course_type"] === "document")? "selected": "" ?>  value="document">Document Course</option>
                     </select>
                 </div>
 

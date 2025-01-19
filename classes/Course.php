@@ -8,6 +8,6 @@ abstract class course extends teacher{
         
     }
     abstract public function AddCourse($title,$description,$type,$category,$content,$user_id,$tags);
-    abstract public function ShowCourse();
+    abstract public function ShowCourse($Course_id);
     abstract public function modifyCourse($title,$description,$content,$category,$course_id,$tags,$type);
 }

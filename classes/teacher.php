@@ -44,14 +44,23 @@ class teacher extends users{
             echo "<tr>
                     <td>{$course['course_title']}</td>
                     <td>{$course['Category']}</td>
-                    <td>45</td>
+                    <td>{$course['course_type']}</td>
                     <td class='course-actions'>
-                        <button class='btn-view'>View</button>
+                    <form action='CourseView.php?CourseID={$course['course_id']}' method='post'>
+                        <input type='hidden' name='courseType' value='{$course['course_type']}'>
+                        <button type='submit' class='btn-view' name='View'>View</button>
+                    </form>    
                         <a href='modifyCourse.php?courseID={$course['course_id']}'><button class='btn-edit'>Edit</button></a>
-                        <button class='btn-delete'>Delete</button>
+                        <a href='actions/deleteCourse.php?courseID={$course['course_id']}'><button class='btn-delete'>Delete</button></a>
                     </td>
                 </tr>";
         }
+    }
+    public function deleteCourse($courseID){
+        $stmt = "DELETE from courses where course_id = :course_id";
+        $stmt = $this->data->prepare($stmt);
+        $stmt->bindParam(":course_id" , $courseID);
+        $stmt->execute();
     }
 
 }
