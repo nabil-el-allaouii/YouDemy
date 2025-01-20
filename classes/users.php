@@ -60,16 +60,24 @@ class users {
                 exit();
             }
             else if($hashed_pass["user_role"] === "teacher"){
-                $_SESSION["username"] = $hashed_pass["user_name"];
-                $_SESSION["userId"] = $hashed_pass["user_id"];
-                header("location: TeacherDashboard.php");
-                exit();
+                if($hashed_pass["Account_status"] !== "desactivated" && $hashed_pass["Account_status"] !== "suspended"){
+                    $_SESSION["username"] = $hashed_pass["user_name"];
+                    $_SESSION["userId"] = $hashed_pass["user_id"];
+                    header("location: TeacherDashboard.php");
+                    exit();
+                }else{
+                    header("location: WaitForActivation.php");
+                }
             }
             else{
-                $_SESSION["user_student"] = $hashed_pass["user_name"];
-                $_SESSION["id_student"] = $hashed_pass["user_id"];
-                header("location: StudentDashboard.php");
-                exit();
+                if($hashed_pass["Account_status"] !== "suspended"){
+                    $_SESSION["user_student"] = $hashed_pass["user_name"];
+                    $_SESSION["id_student"] = $hashed_pass["user_id"];
+                    header("location: StudentDashboard.php");
+                    exit();
+                }else{
+                    header("location: WaitForActivation.php");
+                }
             }
         }
         else{
