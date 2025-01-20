@@ -204,4 +204,35 @@ class Admin extends users
                             </tr>";
         }
     }
+    public function Statistics(){
+        $array = [];
+        $stmt = "SELECT count(*) from courses";
+        $stmt = $this->data->prepare($stmt);
+        $stmt->execute();
+
+        $BestCourse = "SELECT users.user_name,courses.course_title,count(enrollments.enrollment_id) as totalEnroll from enrollments join courses on courses.course_id = enrollments.course_id join users on users.user_id = courses.user_id  group by users.user_name, courses.course_title order by totalEnroll desc limit 1";
+        $BestCourse = $this->data->prepare($BestCourse);
+        $BestCourse->execute();
+
+        $coursesPerCategory = "SELECT count(courses.course_id) as courses , categories.category_content from categories join courses on categories.category_content =courses.category group by categories.category_content";
+        $coursesPerCategory = $this->data->prepare($coursesPerCategory);
+        $coursesPerCategory->execute();
+
+
+        $TopThree = "SELECT count(enrollments.enrollment_id) as total ,users.user_name from users join courses on courses.user_id = users.user_id join enrollments on enrollments.course_id = courses.course_id group by users.user_name order by total desc limit 3";
+        $TopThree = $this->data->prepare($TopThree);
+        $TopThree->execute();
+
+
+        $TopTeachers = $TopThree->fetchAll();
+        $categoriesINCourse = $coursesPerCategory->fetchAll();
+        $TopCourse = $BestCourse->fetch();
+        $totalCourses = $stmt->fetchColumn();
+        $array["totalCourses"] = $totalCourses;
+        $array["TopCourse"] = $TopCourse;
+        $array["CoursesPerCategory"] = $categoriesINCourse;
+        $array["TopTeachers"] = $TopTeachers;
+
+        return $array;
+    }
 }

@@ -3,6 +3,8 @@ require "classes/admin.php";
 if (!isset($_SESSION["Admin_user"])) {
     header("location: login.php");
 }
+
+$counter = 1;
 ?>
 
 <!DOCTYPE html>
@@ -132,8 +134,8 @@ if (!isset($_SESSION["Admin_user"])) {
                             </tr>
                         </thead>
                         <tbody>
-                        <?php $newTeachers->ShowAllcourses() ?>
-                            
+                            <?php $newTeachers->ShowAllcourses() ?>
+
                         </tbody>
                     </table>
                 </div>
@@ -199,8 +201,68 @@ if (!isset($_SESSION["Admin_user"])) {
             </section>
 
             <section id="statistics" class="content-section">
-                <h2>Statistics</h2>
-                Here statistics
+                <h2>Statistiques</h2>
+                <div class="stats-container">
+                    <div class="stats-row">
+                        <div class="stats-card total-courses">
+                            <?php $statistics = $newTeachers->Statistics();
+                                if($statistics){
+                                    extract($statistics);
+                                }else{
+                                    die();
+                                }
+                                 ?>
+                            <h3>Nombre total de cours</h3>
+                            <div class="stats-number"><?php echo $totalCourses ?></div>
+                            <div class="stats-trend positive">
+                                <span>+12%</span> ce mois
+                            </div>
+                        </div>
+
+                        <div class="stats-card category-dist">
+                            <h3>Répartition par catégorie</h3>
+                            <div class="category-list">
+                                <?php foreach($CoursesPerCategory as $category) :?>
+                                    <div class="category-item">
+                                    <div class="category-name"><?php echo $category["category_content"] ?></div>
+                                    <div class="category-count"><?php echo $category["courses"] ?></div>
+                                </div>
+                                <?php endforeach ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stats-row">
+                        <div class="stats-card popular-course">
+                            <h3>Cours le plus populaire</h3>
+                            <div class="course-info">
+                                <img src="https://i.pinimg.com/736x/67/68/78/6768780c1f093ab756b9d0fde0bfc690.jpg" alt="Course thumbnail">
+                                <div class="course-details">
+                                    <h4><?php echo $TopCourse["course_title"] ?></h4>
+                                    <p><?php echo $TopCourse["totalEnroll"] ?></p>
+                                    <span class="instructor">by <?php echo $TopCourse["user_name"] ?></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stats-card top-teachers">
+                            <h3>Top 3 Enseignants</h3>
+                            <div class="teachers-list">
+                                <?php foreach($TopTeachers as $topTeacher) :?>
+                                    <div class="teacher-item">
+                                    <div class="rank"><?php echo $counter;$counter++; ?></div>
+                                    <img src="path/to/teacher1.jpg" alt="Teacher 1">
+                                    <div class="teacher-info">
+                                        <h4><?php echo $topTeacher["user_name"] ?></h4>
+                                        <p><?php echo $topTeacher["total"] ?></p>
+                                    </div>
+                                </div>
+                                <?php endforeach ?>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
         </main>
     </div>

@@ -96,7 +96,7 @@ class users {
 
         $x = ($currentPage - 1) * $perPage;
         $y = $perPage;
-        $Courses = "SELECT * from courses where course_title or course_description like :search Limit $x , $y";
+        $Courses = "SELECT * from courses where course_title like :search Limit $x , $y";
         $Courses = $this->data->prepare($Courses);
         $Courses->bindParam(":search" , $search);
         $Courses->execute();

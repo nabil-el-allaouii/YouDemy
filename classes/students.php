@@ -6,9 +6,10 @@ class students extends users {
         parent::__construct($Username, $email,$password,$UserRole);
     }
     public function Enroll($course_id , $user_id){
-        $check ="SELECT count(*) from enrollments where course_id = :course_id";
+        $check ="SELECT count(*) from enrollments where course_id = :course_id and user_id = :user_id";
         $check = $this->data->prepare($check);
         $check->bindParam(":course_id", $course_id);
+        $check->bindParam(":user_id", $user_id);
         $check->execute();
         $isthere = $check->fetchColumn();
         if($isthere === 0){
