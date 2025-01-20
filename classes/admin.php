@@ -183,4 +183,25 @@ class Admin extends users
         $stmt->execute();
         return true;
     }
+    public function ShowAllcourses(){
+        $stmt = "SELECT * from courses join users on users.user_id = courses.user_id";
+        $stmt = $this->data->prepare($stmt);
+        $stmt->execute();
+        $display = $stmt->fetchAll();
+        foreach($display as $course){
+            echo "<tr>
+                                <td>{$course['course_title']}</td>
+                                <td>{$course['user_name']}</td>
+                                <td>{$course['Category']}</td>
+                                <td>{$course['course_type']}</td>
+                                <td class='course-actions'>
+                                <form action='CourseView.php?CourseID={$course['course_id']}' method='post'>
+                                    <input type='hidden' name='courseType' value='{$course['course_type']}'>
+                                    <button type='submit' name='adminView' class='btn-view'>View</button>
+                                </form>
+                                    <a href='actions/deleteCourse.php?courseID={$course['course_id']}'><button class='btn-delete'>Delete</button></a>
+                                </td>
+                            </tr>";
+        }
+    }
 }

@@ -13,6 +13,7 @@ extract($courses);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Youdemy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -31,20 +32,27 @@ extract($courses);
             <div class="logo">
                 <h1>Youdemy</h1>
             </div>
+            <div class="search-container">
+                <form method="post">
+                    <input type="text" name="search" placeholder="Search for courses..." class="search-input">
+                    <button type="submit" class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#courses">Courses</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <?php if(isset($_SESSION["username"])) {
+                    <?php if (isset($_SESSION["username"])) {
                         echo "<li><a href='TeacherDashboard.php' class='btn-login'>Dashboard</a></li>";
-                    }else if(isset($_SESSION["Admin_user"])){
+                    } else if (isset($_SESSION["Admin_user"])) {
                         echo "<li><a href='DashboardAdmin.php' class='btn-login'>Dashboard</a></li>";
-                    }else if(isset($_SESSION["user_student"])){
+                    } else if (isset($_SESSION["user_student"])) {
                         echo "<li><a href='StudentDashboard.php' class='btn-login'>Dashboard</a></li>";
-                    }
-                    else{
+                    } else {
                         echo "<li><a href='login.php' class='btn-login'>Login</a></li>";
                     }
                     ?>
@@ -63,7 +71,7 @@ extract($courses);
                                     <h3><?php echo $course["course_title"] ?></h3>
                                 </a>
                                 <p><?php echo $course["course_description"] ?></p>
-                                <?php if(isset($_SESSION["user_student"])) :?>
+                                <?php if (isset($_SESSION["user_student"])) : ?>
                                     <a href="actions/Enroll.php?CourseID=<?php echo $course['course_id'] ?>"><button class="enroll-button">Enroll Now</button></a>
                                 <?php endif ?>
 
@@ -75,11 +83,13 @@ extract($courses);
 
                 </div>
                 <div class="pagination">
-                    <a href="index.php?page=<?php  print ( isset($_GET["page"]) && $_GET["page"] > 1)? $_GET["page"] - 1 : $_GET["page"] = 1 ?>"><button class="page-btn">&laquo;</button></a>
-                    <?php for($i = 1;$i<=$number_of_pages;$i++) :?>
+                    <a href="index.php?page=<?php print (isset($_GET["page"]) && $_GET["page"] > 1) ? $_GET["page"] - 1 : $_GET["page"] = 1 ?>"><button class="page-btn">&laquo;</button></a>
+                    <?php for ($i = 1; $i <= $number_of_pages; $i++) : ?>
                         <a href="index.php?page=<?php echo $i ?>"><button class="page-btn"><?php echo $i ?></button></a>
                     <?php endfor ?>
-                    <a href="index.php?page=<?php $currentPage = isset($_GET["page"]) ? (int)$_GET["page"] : 1; $nextPage = ($currentPage < $number_of_pages) ? $currentPage + 1 : $number_of_pages; echo $nextPage ?>"><button class="page-btn">&raquo;</button></a>
+                    <a href="index.php?page=<?php $currentPage = isset($_GET["page"]) ? (int)$_GET["page"] : 1;
+                                            $nextPage = ($currentPage < $number_of_pages) ? $currentPage + 1 : $number_of_pages;
+                                            echo $nextPage ?>"><button class="page-btn">&raquo;</button></a>
                 </div>
             </section>
         </main>

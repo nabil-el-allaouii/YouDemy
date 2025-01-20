@@ -75,24 +75,30 @@ class users {
         else{
             return $this->error = "wrong username or password";
         }
-        
+
     }
 
     public function Pagination(){
+        $search = "%";
+        if(isset($_POST["search"])){
+            $search = "%".$_POST["search"]."%";
+        }
         $array = [];
         $perPage = 3;
         $stmt = "SELECT count(*) from courses";
         $stmt = $this->data->prepare($stmt);
         $stmt->execute();
         $NumberOfCourses = $stmt->fetchColumn();
+        
 
         $totalPages = ceil($NumberOfCourses / $perPage);
         $currentPage = isset($_GET["page"])? "{$_GET['page']}" : "1";
 
         $x = ($currentPage - 1) * $perPage;
         $y = $perPage;
-        $Courses = "SELECT * from courses Limit $x , $y";
+        $Courses = "SELECT * from courses where course_title or course_description like :search Limit $x , $y";
         $Courses = $this->data->prepare($Courses);
+        $Courses->bindParam(":search" , $search);
         $Courses->execute();
         $Content = $Courses->fetchAll();
 

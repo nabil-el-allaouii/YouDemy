@@ -77,12 +77,12 @@ if (!isset($_SESSION["username"])) {
                     <form class="course-form" action="actions/AddCourse.php" method="post">
                         <div class="form-group">
                             <label>Course Title</label>
-                            <input name="title" type="text" placeholder="Enter course title" required>
+                            <input id="Title" name="title" type="text" placeholder="Enter course title" required>
                         </div>
 
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea name="description" placeholder="Enter course description" rows="4" required></textarea>
+                            <textarea id="courseDesc" name="description" placeholder="Enter course description" rows="4" required></textarea>
                         </div>
 
                         <div class="form-group">
@@ -157,8 +157,8 @@ if (!isset($_SESSION["username"])) {
                         </div>
                         <div class="stat-info">
                             <?php $statistics = $Mycourse->Statistics($_SESSION["userId"]);
-                                extract($statistics);
-                             ?>
+                            extract($statistics);
+                            ?>
                             <h3>Nombre d'étudiants inscrits</h3>
                             <p class="stat-value"><?php echo $Users_enrolled ?></p>
                         </div>
@@ -183,6 +183,27 @@ if (!isset($_SESSION["username"])) {
     </footer>
 
     <script>
+        const courseDesc = document.getElementById('courseDesc');
+        courseDesc.addEventListener('input', function(e) {
+            let count = e.target.value.length;
+
+            if (count >= 255) {
+                e.target.value = e.target.value.slice(0, 255); 
+            }
+        });
+
+        const CourseTItle = document.getElementById("Title");
+        CourseTItle.addEventListener('input', e=>{
+            let count = e.target.value.length;
+            const lastChar = e.target.value[e.target.value.length - 1];
+            if(count >= 100){
+                e.target.value=e.target.value.slice(0, 100);
+            }else if(!/^[a-zA-Z-_ ]*$/.test(lastChar)){
+                e.target.value = e.target.value.slice(0, -1);
+            }
+        })
+
+
 
         document.addEventListener('DOMContentLoaded', function() {
             const sidebarLinks = document.querySelectorAll('.sidebar nav ul li a');

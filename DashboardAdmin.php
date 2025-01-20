@@ -119,8 +119,24 @@ if (!isset($_SESSION["Admin_user"])) {
             </section>
 
             <section id="courses" class="content-section">
-                <h2>Courses</h2>
-                Here courses
+                <h2>Courses Management</h2>
+                <div class="courses-container">
+                    <table class="courses-table">
+                        <thead>
+                            <tr>
+                                <th>Course Title</th>
+                                <th>Instructor</th>
+                                <th>Category</th>
+                                <th>Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php $newTeachers->ShowAllcourses() ?>
+                            
+                        </tbody>
+                    </table>
+                </div>
             </section>
 
             <section id="categories" class="content-section">
