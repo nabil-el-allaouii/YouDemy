@@ -63,4 +63,24 @@ class teacher extends users{
         $stmt->execute();
     }
 
+    public function Statistics($user_id){
+        $array = [];
+        $TotalCourses = "select count(*) from courses where user_id = :user_id ";
+        $TotalCourses = $this->data->prepare($TotalCourses);
+        $TotalCourses->bindParam(":user_id" , $user_id);
+        $TotalCourses->execute();
+
+        $stmt = "select count(*) from enrollments join courses on courses.course_id = enrollments.course_id where courses.user_id = :user_id";
+        $stmt = $this->data->prepare($stmt);
+        $stmt->bindParam(":user_id" ,$user_id);
+        $stmt->execute();
+
+        $totalEnrollments = $stmt->fetchColumn();
+        $CoursesInTotal = $TotalCourses->fetchColumn();
+
+        $array["Users_enrolled"] = $totalEnrollments;
+        $array["TotalCourses"] = $CoursesInTotal;
+        return $array;
+    }
+
 }

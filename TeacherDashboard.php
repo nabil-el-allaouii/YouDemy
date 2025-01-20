@@ -1,7 +1,7 @@
 <?php
 require "classes/teacher.php";
 
-if(!isset($_SESSION["username"])){
+if (!isset($_SESSION["username"])) {
     header("location: login.php");
 }
 ?>
@@ -13,6 +13,7 @@ if(!isset($_SESSION["username"])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Youdemy Teacher Dashboard</title>
     <link rel="stylesheet" href="style/TeacherDashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
@@ -117,7 +118,7 @@ if(!isset($_SESSION["username"])){
                                 ?>
                             </div>
                         </div>
-                <p id="errorMsg" style="color: red; display: none;">Please select at least one tag.</p>
+                        <p id="errorMsg" style="color: red; display: none;">Please select at least one tag.</p>
 
                         <button type="submit" class="btn-submit" name="Add-course">Create Course</button>
                     </form>
@@ -138,19 +139,40 @@ if(!isset($_SESSION["username"])){
                             </tr>
                         </thead>
                         <tbody>
-                            
-                        <?php $Mycourse = new teacher("","","");
-                                $Mycourse->TeacherCourses($_SESSION["userId"])  ?>
+
+                            <?php $Mycourse = new teacher("", "", "");
+                            $Mycourse->TeacherCourses($_SESSION["userId"])  ?>
                         </tbody>
                     </table>
                 </div>
             </section>
 
-           
+
             <section id="statistics" class="content-section">
                 <h2>Statistics</h2>
                 <div class="stats-container">
-                    <!-- Add statistics content -->
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <?php $statistics = $Mycourse->Statistics($_SESSION["userId"]);
+                                extract($statistics);
+                             ?>
+                            <h3>Nombre d'étudiants inscrits</h3>
+                            <p class="stat-value"><?php echo $Users_enrolled ?></p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Nombre de cours</h3>
+                            <p class="stat-value"><?php echo $TotalCourses ?></p>
+                        </div>
+                    </div>
                 </div>
             </section>
         </main>
@@ -161,6 +183,7 @@ if(!isset($_SESSION["username"])){
     </footer>
 
     <script>
+
         document.addEventListener('DOMContentLoaded', function() {
             const sidebarLinks = document.querySelectorAll('.sidebar nav ul li a');
             const contentSections = document.querySelectorAll('.content-section');

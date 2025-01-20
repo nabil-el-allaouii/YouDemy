@@ -41,7 +41,10 @@ extract($courses);
                         echo "<li><a href='TeacherDashboard.php' class='btn-login'>Dashboard</a></li>";
                     }else if(isset($_SESSION["Admin_user"])){
                         echo "<li><a href='DashboardAdmin.php' class='btn-login'>Dashboard</a></li>";
-                    } else{
+                    }else if(isset($_SESSION["user_student"])){
+                        echo "<li><a href='StudentDashboard.php' class='btn-login'>Dashboard</a></li>";
+                    }
+                    else{
                         echo "<li><a href='login.php' class='btn-login'>Login</a></li>";
                     }
                     ?>
@@ -54,13 +57,16 @@ extract($courses);
                 <h2>Available Courses</h2>
                 <div class="course-grid">
                     <?php foreach ($course_info as $course) : ?>
-                        <div class="course-card"> <img src="course-image.jpg" alt="Course Image">
+                        <div class="course-card"> <img src="https://i.pinimg.com/736x/67/68/78/6768780c1f093ab756b9d0fde0bfc690.jpg" alt="Course Image">
                             <div class="course-info">
                                 <a href="#">
                                     <h3><?php echo $course["course_title"] ?></h3>
                                 </a>
                                 <p><?php echo $course["course_description"] ?></p>
-                                <button class="enroll-button">Enroll Now</button>
+                                <?php if(isset($_SESSION["user_student"])) :?>
+                                    <a href="actions/Enroll.php?CourseID=<?php echo $course['course_id'] ?>"><button class="enroll-button">Enroll Now</button></a>
+                                <?php endif ?>
+
                             </div>
                         </div>
                     <?php endforeach ?>
@@ -73,7 +79,7 @@ extract($courses);
                     <?php for($i = 1;$i<=$number_of_pages;$i++) :?>
                         <a href="index.php?page=<?php echo $i ?>"><button class="page-btn"><?php echo $i ?></button></a>
                     <?php endfor ?>
-                    <a href="index.php?page=<?php print (isset($_GET["page"]) && $_GET["page"] < $number_of_pages) ? $_GET["page"] + 1: $_GET["page"] = $number_of_pages ?>"><button class="page-btn">&raquo;</button></a>
+                    <a href="index.php?page=<?php $currentPage = isset($_GET["page"]) ? (int)$_GET["page"] : 1; $nextPage = ($currentPage < $number_of_pages) ? $currentPage + 1 : $number_of_pages; echo $nextPage ?>"><button class="page-btn">&raquo;</button></a>
                 </div>
             </section>
         </main>

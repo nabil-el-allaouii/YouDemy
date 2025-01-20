@@ -68,12 +68,14 @@ class users {
             else{
                 $_SESSION["user_student"] = $hashed_pass["user_name"];
                 $_SESSION["id_student"] = $hashed_pass["user_id"];
+                header("location: StudentDashboard.php");
+                exit();
             }
         }
         else{
             return $this->error = "wrong username or password";
         }
-
+        
     }
 
     public function Pagination(){

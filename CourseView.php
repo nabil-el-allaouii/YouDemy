@@ -1,6 +1,6 @@
 
 <?php 
-    if(isset($_POST['View'])){
+    if(isset($_POST['View']) || isset($_POST["StudentView"])){
         $ContentType = $_POST["courseType"];
         $Course_id = $_GET["CourseID"];
     }
