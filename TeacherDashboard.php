@@ -34,7 +34,7 @@ if (!isset($_SESSION["username"])) {
                 <span class="user-role">Teacher</span>
             </div>
             <div class="profile-pic">
-                <img src="#" alt="Profile Picture">
+                <img src="https://i.pinimg.com/736x/1c/38/a1/1c38a14647cb4df35925e55dafcf7ca4.jpg" alt="Profile Picture">
             </div>
         </div>
     </header>

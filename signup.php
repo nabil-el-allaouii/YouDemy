@@ -8,14 +8,19 @@ if (isset($_POST["Signup"])) {
     $email = $_POST["email"];
     $password = $_POST["password"];
     $user_role = $_POST["role"];
+    $error = "";
     if(!empty($username) && !empty($email) && !empty($password) && !empty($user_role)){
         if(filter_var($email, FILTER_VALIDATE_EMAIL)){
-            $enc_password = password_hash($password , PASSWORD_DEFAULT);
+            if(strlen($password) < 8 || !preg_match('/[A-Za-z]/', $password) || !preg_match('/[0-9]/', $password) || !preg_match('/[@$!%*?&#]/', $password)){
+                $error = "Password must contain at least 8 characters and at least one digit and at least one symbol";
+            }else{
+                $enc_password = password_hash($password , PASSWORD_DEFAULT);
 
-            $newUser = new users($username,$email,$enc_password,$user_role);
-            $newUser->Signup();
-            header("location: login.php");
-            exit();
+                $newUser = new users($username,$email,$enc_password,$user_role);
+                $newUser->Signup();
+                header("location: login.php");
+                exit();
+            }
         }
     }
 
@@ -35,7 +40,7 @@ if (isset($_POST["Signup"])) {
         <div class="signup-container">
             <div class="signup-box">
                 <h2>Sign Up</h2>
-                <form action="signup.php" method="post">
+                <form id="signupForm" action="signup.php" method="post">
                     <div class="input-group">
                         <label for="username">Username:</label>
                         <input type="text" id="username" name="username" required>
@@ -57,6 +62,7 @@ if (isset($_POST["Signup"])) {
                         </select>
                     </div>
                     <div class="input-group">
+                        <p style="color: red;"><?php print (!empty($error)) ? $error : "" ; ?></p>
                         <button type="submit" name="Signup" class="signup-button">Sign Up</button>
                     </div>
                 </form>
@@ -66,5 +72,18 @@ if (isset($_POST["Signup"])) {
     </main>
 
 </body>
+<script> 
+    const form = document.getElementById("signupForm");
+
+    form.addEventListener("submit" , e=>{
+        let email = document.getElementById("email").value.trim();
+        let username = document.getElementById("username").value.trim();;
+        let password = document.getElementById("password").value.trim();;
+        if(!email || !username || !password){
+            e.preventDefault();
+        }
+    })
+
+</script>
 
 </html>

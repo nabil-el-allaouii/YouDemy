@@ -44,7 +44,6 @@
         </aside>
 
         <main>
-            <!-- Overview Section -->
             <section id="overview" class="content-section active">
                 <h2>Overview</h2>
                 <div class="cards">
@@ -77,10 +76,8 @@
                 </div>
             </section>
 
-            <!-- Progress Section -->
             <section id="progress" class="content-section">
                 <h2>My Progress</h2>
-                <!-- Add progress content here -->
             </section>
         </main>
     </div>

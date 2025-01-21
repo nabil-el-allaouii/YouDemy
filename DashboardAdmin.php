@@ -35,7 +35,7 @@ $counter = 1;
                 <span class="user-role">Administrator</span>
             </div>
             <div class="profile-pic">
-                <img src="#" alt="Profile Picture">
+                <img src="https://i.pinimg.com/736x/c5/d2/e0/c5d2e0b8ec09b912c11b6a32ed565acf.jpg" alt="Profile Picture">
             </div>
         </div>
     </header>
